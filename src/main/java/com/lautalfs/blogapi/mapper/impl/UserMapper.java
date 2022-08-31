@@ -31,6 +31,7 @@ public class UserMapper implements Mapper<UserDTO, UserEntity> {
 
     @Override
     public UserEntity toUpdate(UserDTO userDTO, UserEntity user) {
+        user.setId(userDTO.getId());
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());

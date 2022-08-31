@@ -4,12 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity(name = "users")
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE id = ?")
+@Where(clause = "soft_delete = false")
 @NoArgsConstructor
 public class UserEntity {
     @Id
@@ -27,5 +31,8 @@ public class UserEntity {
     private String password;
 
     private String about;
+
+    @Column(name = "soft_delete")
+    private boolean softDelete;
 }
 
