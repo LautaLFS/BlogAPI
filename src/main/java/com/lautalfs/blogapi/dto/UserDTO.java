@@ -7,6 +7,8 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.Email;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class UserDTO {
     private String id;
     @NonNull
     private String name;
-    @NonNull
+    @Email
     private String email;
     @NonNull
     private String password;
