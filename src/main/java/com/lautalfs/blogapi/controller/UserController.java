@@ -1,5 +1,6 @@
 package com.lautalfs.blogapi.controller;
 
+import com.lautalfs.blogapi.dto.ApiResponse;
 import com.lautalfs.blogapi.dto.UserDTO;
 import com.lautalfs.blogapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +37,14 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable String id,@RequestBody UserDTO user){
+    public ResponseEntity<UserDTO> updateUser(@Valid @PathVariable String id, @RequestBody UserDTO user){
         UserDTO userDTO = this.userService.updateUser(user, id);
         return ResponseEntity.ok(userDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable String id){
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable String id){
         this.userService.deleteUser(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ApiResponse("User deleted successfully", true));
     }
 }

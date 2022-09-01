@@ -25,10 +25,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO user, String id) {
-        UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        return userMapper.toDto(userRepository
-                .save(userMapper.toUpdate(user, userEntity)));
+       UserEntity userEntity = userRepository.findById(id)
+               .orElseThrow(()-> new ResourceNotFoundException("User", "id", id));
+       userEntity.setName(user.getName());
+       userEntity.setEmail(user.getEmail());
+       userEntity.setPassword(user.getPassword());
+       userEntity.setAbout(user.getAbout());
+       return userMapper.toDto(userEntity);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getAllUsers() {
         List<UserEntity> users = this.userRepository.findAll();
-        return users.stream().map(user -> userMapper.toDto(user))
+        return users.stream().map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 
