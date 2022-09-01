@@ -1,4 +1,4 @@
-package com.lautalfs.blogapi.mapper.impl;
+package com.lautalfs.blogapi.mapper;
 
 import com.lautalfs.blogapi.dto.UserDTO;
 import com.lautalfs.blogapi.entity.UserEntity;

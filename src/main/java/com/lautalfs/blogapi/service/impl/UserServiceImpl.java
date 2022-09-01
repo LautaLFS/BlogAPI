@@ -3,7 +3,7 @@ package com.lautalfs.blogapi.service.impl;
 import com.lautalfs.blogapi.dto.UserDTO;
 import com.lautalfs.blogapi.entity.UserEntity;
 import com.lautalfs.blogapi.exception.ResourceNotFoundException;
-import com.lautalfs.blogapi.mapper.impl.UserMapper;
+import com.lautalfs.blogapi.mapper.UserMapper;
 import com.lautalfs.blogapi.repository.UserRepository;
 import com.lautalfs.blogapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
        userEntity.setEmail(user.getEmail());
        userEntity.setPassword(user.getPassword());
        userEntity.setAbout(user.getAbout());
-       return userMapper.toDto(userEntity);
+       return userMapper.toDto(userRepository.save(userEntity));
     }
 
     @Override
