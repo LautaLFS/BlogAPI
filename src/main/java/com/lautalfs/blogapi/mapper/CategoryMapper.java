@@ -14,7 +14,7 @@ public class CategoryMapper extends ModelMapper {
         return map(categoryEntity, CategoryDTO.class);
     }
 
-    public CategoryEntity toEntity(CategoryDTO categoryEntity) {
-        return map(categoryEntity, CategoryEntity.class);
+    public CategoryEntity toEntity(CategoryDTO categoryDTO) {
+        return map(categoryDTO, CategoryEntity.class);
     }
 }
