@@ -9,7 +9,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
-@Entity(name = "users")
+@Entity(name = "user")
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE id = ?")

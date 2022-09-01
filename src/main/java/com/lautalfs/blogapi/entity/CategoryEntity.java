@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "categories")
+@Table(name = "category")
 @NoArgsConstructor
 public class CategoryEntity {
 
