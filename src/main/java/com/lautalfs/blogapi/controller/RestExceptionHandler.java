@@ -2,6 +2,7 @@ package com.lautalfs.blogapi.controller;
 
 import com.lautalfs.blogapi.dto.ApiResponse;
 import com.lautalfs.blogapi.exception.ResourceNotFoundException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiResponse apiResponse = new ApiResponse(message, false);
         return handleExceptionInternal(ex, apiResponse,new HttpHeaders(),HttpStatus.NOT_FOUND,request);
     }
+    @ExceptionHandler(value = PropertyReferenceException.class)
+    public ResponseEntity<Object> propertyNotFoundExceptionHandler(PropertyReferenceException ex, WebRequest request){
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return handleExceptionInternal(ex, apiResponse,new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE,request);
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -35,5 +42,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         });
         return handleExceptionInternal(ex, response ,new HttpHeaders(),HttpStatus.NOT_FOUND,request);
     }
+
 }
 

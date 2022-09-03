@@ -20,7 +20,7 @@ public class PostEntity {
     private String id;
 
     @Column(name = "post_tile", length = 100, nullable = false)
-    private String postTitle;
+    private String title;
 
     @Column(length = 10000)
     private String content;
