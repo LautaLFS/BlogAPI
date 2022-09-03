@@ -2,10 +2,11 @@ package com.lautalfs.blogapi.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,4 +26,6 @@ public class PostDTO {
     private UserDTO user;
 
     private CategoryDTO category;
+
+    Set<CommentDTO> comments = new HashSet<>();
 }
