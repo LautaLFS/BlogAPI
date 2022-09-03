@@ -1,5 +1,6 @@
 package com.lautalfs.blogapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "post")
 @Getter
@@ -31,10 +34,14 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private CategoryEntity category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "postEntity", cascade = CascadeType.ALL)
+    private Set<CommentEntity> comments = new HashSet<>();
 
 }
