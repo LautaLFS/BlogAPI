@@ -6,11 +6,13 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "categories")
+@Table(name = "category")
 @NoArgsConstructor
 public class CategoryEntity {
 
@@ -24,4 +26,7 @@ public class CategoryEntity {
 
     @Column(name = "description")
     private String categoryDescription;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostEntity> posts =new ArrayList<>();
 }
