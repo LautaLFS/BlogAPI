@@ -10,6 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class PostDTO {
+    private String id;
     @NotEmpty
     @Size(min = 4, max=12, message = "Min must have 4 characters and max 12")
     private String postTitle;
