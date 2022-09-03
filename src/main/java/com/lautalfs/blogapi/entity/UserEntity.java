@@ -8,8 +8,10 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity(name = "users")
+@Entity(name = "user")
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE id = ?")
@@ -34,5 +36,8 @@ public class UserEntity {
 
     @Column(name = "soft_delete")
     private boolean softDelete;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostEntity> posts =new ArrayList<>();
 }
 
