@@ -1,5 +1,7 @@
 #db configuration
 spring:
+  main:
+    allow-circular-references: true
   servlet:
     multipart:
       max-file-size: 1024MB
@@ -19,5 +21,10 @@ spring:
       ddl-auto: update
 project:
   image: image/
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
 
 
