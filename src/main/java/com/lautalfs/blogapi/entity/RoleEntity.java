@@ -18,6 +18,6 @@ public class RoleEntity {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String roleName;
+    private String name;
 
 }

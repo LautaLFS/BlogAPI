@@ -2,7 +2,7 @@ package com.lautalfs.blogapi.security.controller;
 
 import com.lautalfs.blogapi.security.dto.JwtAuthRequest;
 import com.lautalfs.blogapi.security.dto.JwtAuthResponse;
-import com.lautalfs.blogapi.security.utils.JwtUtil;
+import com.lautalfs.blogapi.security.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserDetailsService userDetailsService;
-    private final JwtUtil jwtUtil;
+    private final JwtUtils jwtUtil;
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> createToken(
             @RequestBody JwtAuthRequest request
-    ) throws Exception {
+    ) {
         this.authenticate(request.getUsername(), request.getPassword());
 
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
@@ -35,13 +35,12 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtAuthResponse);
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private void authenticate(String username, String password) {
         UsernamePasswordAuthenticationToken authenticate = new UsernamePasswordAuthenticationToken(username, password);
         try {
             authenticationManager.authenticate(authenticate);
         }catch(BadCredentialsException ex){
-            System.out.println("invalid details");
-            throw new Exception();
+            logger.error("Authentication failed");
         }
 
     }

@@ -52,12 +52,12 @@ public class UserEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(
-                role.getRoleName())).collect(Collectors.toList());
+                role.getName())).collect(Collectors.toList());
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
     @Override
