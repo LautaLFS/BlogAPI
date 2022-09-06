@@ -1,12 +1,15 @@
 package com.lautalfs.blogapi.service.impl;
 
+import com.lautalfs.blogapi.config.AppConstants;
 import com.lautalfs.blogapi.dto.UserDTO;
 import com.lautalfs.blogapi.entity.UserEntity;
 import com.lautalfs.blogapi.exception.ResourceNotFoundException;
 import com.lautalfs.blogapi.mapper.UserMapper;
+import com.lautalfs.blogapi.repository.RoleRepository;
 import com.lautalfs.blogapi.repository.UserRepository;
 import com.lautalfs.blogapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,20 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
+    private final RoleRepository roleRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDTO registerUser(UserDTO userDTO) {
+        var user = userMapper.toEntity(userDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        var role = roleRepository.findById(AppConstants.ROLE_USER).get();
+        user.getRoles().add(role);
+        return userMapper.toDto(userRepository.save(user));
+    }
+
     @Override
     public UserDTO createUser(UserDTO user) {
         return userMapper.toDto(this.userRepository.save(userMapper.toEntity(user)));

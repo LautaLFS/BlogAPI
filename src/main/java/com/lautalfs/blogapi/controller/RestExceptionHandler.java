@@ -6,6 +6,7 @@ import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +31,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String message = ex.getMessage();
         ApiResponse apiResponse = new ApiResponse(message, false);
         return handleExceptionInternal(ex, apiResponse,new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE,request);
+    }
+    @ExceptionHandler(value = BadCredentialsException.class)
+    public ResponseEntity<Object> badCredentialsExceptionHandler(BadCredentialsException ex, WebRequest request){
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, false);
+        return handleExceptionInternal(ex, apiResponse,new HttpHeaders(),HttpStatus.BAD_REQUEST,request);
     }
 
     @Override

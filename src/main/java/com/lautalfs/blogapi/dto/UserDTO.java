@@ -1,6 +1,7 @@
 package com.lautalfs.blogapi.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserDTO {
     @Id
+    @JsonIgnore
     private String id;
 
     @NotEmpty(message = "must not be empty")

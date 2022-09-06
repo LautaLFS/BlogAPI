@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Entity(name = "user")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE user SET soft_delete = true WHERE id = ?")
 @Where(clause = "soft_delete = false")
 @NoArgsConstructor
 public class UserEntity implements UserDetails {
